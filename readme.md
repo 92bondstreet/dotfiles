@@ -8,6 +8,10 @@ Set of configuration dot files.
 
 * [92BondStreet theme](bondstreet.zsh-theme)
 
+### Git
+
+* [Gitignore](.gitignore)
+
 ## Project status
 
 dotfiles is in progress and is currently maintained by Yassine Azzout.
