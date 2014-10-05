@@ -12,6 +12,10 @@ Set of configuration dot files.
 
 * [Gitignore](.gitignore)
 
+### Nano
+
+* [Configuration](.nanorc)
+
 ## Project status
 
 dotfiles is in progress and is currently maintained by Yassine Azzout.
