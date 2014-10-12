@@ -1,10 +1,11 @@
 function getHour() {
 
-  local hour="%D{%K}";
+  local hour=$(date +"%H");
   local time="%T";
   local color=%{$fg[green]%};
+  local limit="16";
 
-  if [[ "$hour" > 16 ]]; then
+  if [[ "$hour" > "$limit" ]]; then
     color=%{$fg[red]%};
   fi
 
