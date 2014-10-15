@@ -3,9 +3,13 @@ function getHour() {
   local hour=$(date +"%H");
   local time="%T";
   local color=%{$fg[green]%};
-  local limit="16";
+  local default_limit="16";
 
-  if [[ "$hour" > "$limit" ]]; then
+  if [ -z "$WORK_HOUR_LIMIT" ]; then
+    WORK_HOUR_LIMIT=$default_limit;
+  fi
+
+  if [[ "$hour" > "$WORK_HOUR_LIMIT" ]]; then
     color=%{$fg[red]%};
   fi
 
