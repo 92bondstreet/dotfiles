@@ -1,0 +1,36 @@
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Path Shortcuts
+alias dl="cd ~/Downloads"
+alias dev="cd ~/dev"
+
+# Editor
+a () {
+  if [ -z $1 ] ; then
+    atom .
+  else
+    atom $1
+  fi
+}
+
+# ZSHRC
+alias arc="a ~/.zshrc"
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias osx-update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+alias sourcerc="source ~/.zshrc"
+alias sourceal="source ~/.aliases"
+
+# To clear terminal
+alias c='clear'
+
+# Commands History
+alias h="history"
+
+# Speed-up Terminal load time by clearing system logs
+alias speedup="sudo rm -rf /private/var/log/asl/*"
