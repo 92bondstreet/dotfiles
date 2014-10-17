@@ -1,0 +1,33 @@
+[user]
+	name = Yassine AZZOUT
+	email = 92bondstreet@gmail.com
+
+[alias]
+
+	#Branches
+	branch-name = "!git rev-parse --abbrev-ref HEAD"
+	publish = "!git push -u origin $(git branch-name)"
+
+	# Fetch/rebase
+	fs = fetch source
+	rsd = rebase source/devel
+	rsm = rebase source/master
+
+	# log
+	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+
+[color]
+
+	ui = auto
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
