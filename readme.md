@@ -16,6 +16,10 @@ Set of configuration dot files.
 
 * [Configuration](.nanorc)
 
+### Tmux
+
+* [Configuration](.tmux.conf)
+
 ## Project status
 
 dotfiles is in progress and is currently maintained by Yassine Azzout.
