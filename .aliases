@@ -9,9 +9,9 @@ alias dev="cd ~/dev"
 # Editor
 a () {
   if [ -z $1 ] ; then
-    atom .
+    reattach-to-user-namespace atom .
   else
-    atom $1
+    reattach-to-user-namespace atom $1
   fi
 }
 
@@ -27,10 +27,15 @@ alias sourcerc="source ~/.zshrc"
 alias sourceal="source ~/.aliases"
 
 # To clear terminal
-alias c='clear'
+alias c="clear"
 
 # Commands History
 alias h="history"
 
 # Speed-up Terminal load time by clearing system logs
 alias speedup="sudo rm -rf /private/var/log/asl/*"
+
+# Tmux
+kill-tx (){
+  tmux kill-session -t $1
+}
