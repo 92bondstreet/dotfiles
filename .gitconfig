@@ -10,6 +10,7 @@
 	# Branches
 	branch-name = "!git rev-parse --abbrev-ref HEAD"
 	publish = "!git push -u origin $(git branch-name)"
+	done = "branch -lvv"
 
 	# discard all changes made (including removing untracked files)
 	discardall = !git clean -df && git checkout .
