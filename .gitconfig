@@ -4,7 +4,10 @@
 
 [alias]
 
-	#Branches
+	# Add, commit
+	ac = "!git add -A && git commit -m"
+
+	# Branches
 	branch-name = "!git rev-parse --abbrev-ref HEAD"
 	publish = "!git push -u origin $(git branch-name)"
 
@@ -15,7 +18,7 @@
 
 	# log
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-
+	today = log --oneline --since='12 hour ago'
 
 [color]
 
