@@ -1,0 +1,16 @@
+# editorconfig.org
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+# 4 spaces indentation for PHP (PSR-2)
+[*.{php,module,inc]
+indent_size = 4
