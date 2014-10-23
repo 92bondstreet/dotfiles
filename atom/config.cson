@@ -1,0 +1,17 @@
+editor':
+  'fontSize': 12
+  'fontFamily': 'Source Code Pro'
+  'invisibles': {}
+'core':
+  'themes': [
+    'spacegray-dark-ui'
+    'base16-ocean-dark-spacegray'
+  ]
+  'disabledPackages': [
+    'autocomplete'
+    'linter-eslint'
+  ]
+'welcome':
+  'showOnStartup': false
+'autocomplete-plus':
+  'enableAutoActivation': false
