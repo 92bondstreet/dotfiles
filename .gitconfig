@@ -3,7 +3,6 @@
 	email = 92bondstreet@gmail.com
 
 [alias]
-
 	# Add, commit
 	ac = "!git add -A && git commit -m"
 
@@ -11,23 +10,31 @@
 	branch-name = "!git rev-parse --abbrev-ref HEAD"
 	publish = "!git push -u origin $(git branch-name)"
 	done = "branch -lvv"
+	# Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
 	# discard all changes made (including removing untracked files)
 	discardall = !git clean -df && git checkout .
 
 	# Fetch/rebase
+	fo = fetch origin
 	fs = fetch source
 	rsd = rebase source/devel
 	rsm = rebase source/master
+	rs = "!f() { git rebase source/$1; }; f"
 
 	# log
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	today = log --oneline --since='12 hour ago'
 	what = "!git log --stat origin/$(git branch-name)..HEAD"
 
+	# File log history
+	h = log -p
+
+	# aliases
+	aliases = "!git config -l | grep alias | cut -c 7-"
 
 [color]
-
 	ui = auto
 
 [color "status"]
