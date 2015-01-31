@@ -39,7 +39,7 @@ prompt_pure_git_dirty() {
 	[[ "$PURE_GIT_UNTRACKED_DIRTY" == 0 ]] && local umode="-uno" || local umode="-unormal"
 	command test -n "$(git status --porcelain --ignore-submodules ${umode})"
 
-	(($? == 0)) && echo ' $(unpushedStat)'
+	(($? == 0)) && echo ' *'
 }
 
 # displays the exec time of the last command if set threshold was exceeded
@@ -71,7 +71,7 @@ prompt_pure_precmd() {
 	# git info
 	vcs_info
 
-	local prompt_pure_preprompt="\n%F{blue}%~%F{242}$vcs_info_msg_0_`prompt_pure_git_dirty` $prompt_pure_username%f %F{yellow}`prompt_pure_cmd_exec_time`%f"
+	local prompt_pure_preprompt="\n%F{blue}%~%F{242}$vcs_info_msg_0_`prompt_pure_git_dirty` $(hg_prompt_info) $(unpushedStat) $prompt_pure_username%f %F{yellow}`prompt_pure_cmd_exec_time`%f"
 	print -P $prompt_pure_preprompt
 
 	# right display
@@ -88,8 +88,8 @@ prompt_pure_precmd() {
 		# check if there is an upstream configured for this branch
 		command git rev-parse --abbrev-ref @'{u}' &>/dev/null && {
 			local arrows=''
-			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='⇣'
-			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='⇡'
+			(( $(command git rev-list --right-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows='â‡£'
+			(( $(command git rev-list --left-only --count HEAD...@'{u}' 2>/dev/null) > 0 )) && arrows+='â‡¡'
 			print -Pn "\e7\e[A\e[1G\e[`prompt_pure_string_length $prompt_pure_preprompt`C%F{cyan}${arrows}%f\e8"
 		}
 	} &!
@@ -147,14 +147,27 @@ getHour() {
 
 unpushedStat() {
 
-	branch=$(git rev-parse --abbrev-ref HEAD)
-	count=$(git rev-list --count HEAD origin/$branch...HEAD)
+	# check if we're in a git repo
+	command git rev-parse --is-inside-work-tree &>/dev/null || return
+
+	# branch
+	branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+	if [ $? -ne 0 ] || [ -z "$branch" ]; then
+		return
+	fi
+
+	count=$(git rev-list --count HEAD origin/$branch...HEAD 2>/dev/null)
+
+	if [ $? -ne 0 ] || [ -z "$count" ]; then
+		return
+	fi
 
 	if [ "$count" -eq "0" ]
 	then
-	  stat='*'
+		stat=''
 	else
-	  stat=$count
+		stat=$count
 	fi
 
 	echo $stat

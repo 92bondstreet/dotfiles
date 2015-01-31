@@ -31,6 +31,9 @@
 	# File log history
 	h = log -p
 
+	# Conflicts
+	conflicts = "!git diff --name-only --diff-filter=U"
+
 	# aliases
 	aliases = "!git config -l | grep alias | cut -c 7-"
 
