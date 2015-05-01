@@ -3,13 +3,17 @@
 	email = 92bondstreet@gmail.com
 
 [alias]
+
 	# Add, commit
 	ac = "!git add -A && git commit -m"
 
 	# Branches
 	branch-name = "!git rev-parse --abbrev-ref HEAD"
 	publish = "!git push -u origin $(git branch-name)"
-	done = "branch -lvv"
+	wip = "branch -lavv"
+	# done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
+	delete-branch = "!f() { git branch -D \"$1\" && git push origin :\"$1\"; }; f"
+	saw = "!f() { git remote update \"$1\" --prune; }; f"
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
@@ -21,18 +25,42 @@
 	fs = fetch source
 	rsd = rebase source/devel
 	rsm = rebase source/master
-	rs = "!f() { git rebase source/$1; }; f"
+	rs = "!f() { git rebase source/\"$1\"; }; f"
+	ri = "!f() { git rebase -i \"$1\"; }; f"
+	ris = "!f() { git rebase -i source/\"$1\"; }; f"
+	rih =  "!f() { git rebase -i HEAD~\"$1\"; } ;f"
 
 	# log
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	today = log --oneline --since='12 hour ago'
 	what = "!git log --stat origin/$(git branch-name)..HEAD"
+	prod= "!git diff --name-only source/$1..source/$2"
+	prod-status= "!git diff --name-status source/$1..source/$2"
 
 	# File log history
 	h = log -p
 
 	# Conflicts
-	conflicts = "!git diff --name-only --diff-filter=U"
+	conflicts = "!git ls-files -u | cut -f 2 | sort -u"
+	resolve-theirs = "!git ls-files -u | cut -f 2 | sort -u | xargs git checkout --theirs"
+	resolve-ours = "!git ls-files -u | cut -f 2 | sort -u | xargs git checkout --ours"
+	undo-merge="!git reset --merge ORIG_HEAD"
+
+	# Changelog
+	last-tag="!git describe --tags `git rev-list --tags --max-count=1`"
+	changefiles="!f() { git diff --name-only \"$1\"..\"$2\"; }; f"
+
+	# Merge request
+	mr="!f() { git fs && git diff source/\"$1\"; }; f"
+	mrd="!f() { git mr devel; }; f"
+	mrm="!f() { git mr master; }; fr"
+
+	# Diff/Patch
+	create-patch="!f() { git format-patch \"$1\"..\"$2\"  --stdout > \"$3\"; }; f"
+	create-diff="!f() { git diff \"$1\"..\"$2\"  $3 > \"$3\".diff; }; f"
+	apply-patch="!f() { git am \"$1\" --3way --keep-cr; }; f"
+	apply-diff="!f() { git apply --ignore-space-change --ignore-whitespace -v --3way \"$1\"; }; f"
+
 
 	# aliases
 	aliases = "!git config -l | grep alias | cut -c 7-"
@@ -46,7 +74,23 @@
   untracked = cyan
 
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
+[core]
+	editor = nano
+[difftool "kdiff3"]
+	path = /usr/local/bin/kdiff3
+	trustExitCode = false
+[difftool]
+	prompt = false
+[diff]
+	tool = kdiff3
+[mergetool]
+	keepBackup = false
+[merge]
+	tool = kdiff3NoAuto
+[mergetool "kdiff3NoAuto"]
+	trustExitCode = false
+	cmd = kdiff3 --L1 \"$MERGED (Base)\" --L2 \"$MERGED (Local)\" --L3 \"$MERGED (Remote)\" -o \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"

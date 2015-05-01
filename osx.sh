@@ -196,6 +196,23 @@ case $response in
     cd ~/.k
     curl -o k.sh -l https://raw.githubusercontent.com/supercrabtree/k/master/k.sh
 
+    # nano configuration
+    cecho "Download nano color syntax..."$yellow
+    mkdir -p ~/.nano/syntax
+    cd ~/.nano/syntax
+    curl -o git.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/git.nanorc
+    curl -o javascript.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/javascript.nanorc
+    curl -o markdown.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/markdown.nanorc
+    curl -o patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/patch.nanorc
+    curl -o sh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/sh.nanorc
+    curl -o zsh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/zsh.nanorc
+
+    # Tmuxinator
+    gem install tmuxinator
+
+    # Time tracker
+    gem install timetrap
+
     cecho "Terminal installed" $green
 
     break;;

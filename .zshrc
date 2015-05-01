@@ -7,7 +7,7 @@ ZSH_THEME="pure"
 export DISABLE_AUTO_TITLE=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(git zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting history history-substring-search terminalapp brew)
 
 # Start
 source $ZSH/oh-my-zsh.sh
@@ -17,6 +17,9 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin"
 
 # Personal aliases
 source ~/.aliases
+
+# K
+source ~/.k/k.sh
 
 # TMUX
 export EDITOR='nano'
