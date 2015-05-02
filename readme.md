@@ -4,17 +4,35 @@ Set of configuration dot files.
 
 ## Scope
 
-### oh-my-zsh
+### Atom (editor)
 
-* [92BondStreet theme](bondstreet.zsh-theme)
+* [Packages](./atom/packages.json)
+* [Configuration](./atom/config.json)
+* [Keymap](./atom/keymap.json)
+* [Editorconfig](.editorconfig)
 
 ### Git
 
 * [Gitignore](.gitignore)
+* [Aliases](.gitconfig)
+
+### Linter
+
+* [eslint](.eslintrc)
 
 ### Nano
 
 * [Configuration](.nanorc)
+
+### oh-my-zsh
+
+* [zshrc](./zshrc)
+* [92BondStreet theme](bondstreet.zsh-theme)
+* [(custom) Pure theme](pure.zsh-theme)
+
+### OSX
+
+* [Bootstrap](osx.sh)
 
 ### Tmux
 
