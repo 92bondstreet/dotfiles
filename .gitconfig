@@ -1,10 +1,9 @@
 [user]
 	name = Yassine AZZOUT
-	email = 92bondstreet@gmail.com
+	email = yassine.azzout@gmail.com
 
 [alias]
-
-	# Add, commit
+	# Add and commit
 	ac = "!git add -A && git commit -m"
 
 	# Branches
@@ -22,20 +21,20 @@
 
 	# Fetch/rebase
 	fo = fetch origin
-	fs = fetch source
-	rsd = rebase source/devel
-	rsm = rebase source/master
-	rs = "!f() { git rebase source/\"$1\"; }; f"
+  fu = fetch upstream
+  rud = rebase upstream/devel
+	rum = rebase upstream/master
+  ru = "!f() { git rebase upstream/\"$1\"; }; f"
 	ri = "!f() { git rebase -i \"$1\"; }; f"
-	ris = "!f() { git rebase -i source/\"$1\"; }; f"
+  riu = "!f() { git rebase -i upstream/\"$1\"; }; f"
 	rih =  "!f() { git rebase -i HEAD~\"$1\"; } ;f"
 
 	# log
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	today = log --oneline --since='12 hour ago'
 	what = "!git log --stat origin/$(git branch-name)..HEAD"
-	prod= "!git diff --name-only source/$1..source/$2"
-	prod-status= "!git diff --name-status source/$1..source/$2"
+	prod= "!git diff --name-only upstream/$1..upstream/$2"
+	prod-status= "!git diff --name-status upstream/$1..upstream/$2"
 
 	# File log history
 	h = log -p
@@ -51,7 +50,7 @@
 	changefiles="!f() { git diff --name-only \"$1\"..\"$2\"; }; f"
 
 	# Merge request
-	mr="!f() { git fs && git diff source/\"$1\"; }; f"
+	mr="!f() { git fs && git diff upstream/\"$1\"; }; f"
 	mrd="!f() { git mr devel; }; f"
 	mrm="!f() { git mr master; }; fr"
 

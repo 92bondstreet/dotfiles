@@ -1,225 +1,69 @@
 #!/bin/bash
 
-## Bootstrap to install new MAC OSX development environment
+# Thanks to https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh
 
-## Custom echo
-red='\033[0;31m'
-yellow='\033[0;33m'
-green='\033[0;32m'
+sudo -v
 
-## Color-echo.
-#  Reset text attributes to normal + without clearing screen.
-alias Reset="tput sgr0"
-# arg $1 = message
-# arg $2 = Color
-cecho() {
-  echo "${2}${1}"
-  Reset # Reset to normal.
-  return
-}
+echo "👮‍♀️ Setting a better security"
+defaults write com.apple.Safari \
+  com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled \
+  -bool false
+defaults write com.apple.Safari \
+  com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles \
+  -bool false
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
+sudo launchctl load /System/Library/LaunchDaemons/com.apple.alf.agent.plist 2>/dev/null
 
-## HOMEBREW
-cecho "Homebrew installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
-    # Check for Homebrew,
-    # Install if we don't have it
-    if test ! $(which brew); then
-      cecho "Installing homebrew..." $yellow
-      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
+echo "🌳 Creating structure..."
+mkdir -p ~/dev
+mkdir -p ~/labs
 
-    # Update homebrew recipes
-    brew update
+echo "🔑 Dowloading dotfiles..."
+curl -o "~/.aliases" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/.aliases
+curl -o "~/.editorconfig" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/.editorconfig
+curl -o "~/.gitconfig" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/.gitconfig
+curl -o "~/.gitignore" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/.gitignore
+curl -o "~/.nanorc" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/.nanorc
 
-    ## CASK INSTALLATION
-    brew install caskroom/cask/brew-cask
+echo "📦 Installation Homebrew..."
+curl -o "~/.Brewfile" https://raw.githubusercontent.com/92bondstreet/dotfiles/master/Brewfile
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+brew bundle -f "~/.Brewfile"
 
-    cecho "Homebrew and cask installed..." $green
+# use these tools over their Mac counterparts
+$PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
-    break;;
-  *) break;;
-esac
+brew upgrade
+brew cleanup -s &>/dev/null
+#brew cask cleanup &>/dev/null
+rm -rfv $(brew --cache) &>/dev/null
+brew tap --repair &>/dev/null
 
-## GNU Utilities
-cecho "GNU Utilities installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
+echo "🚀 Installing nvm"
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+source ~/.zshrc
+nvm install node
 
-    cecho "Installing GNU utilities..." $yellow
+echo "🖥️ Theming the terminal"
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+curl -o ~/Downloads/solarized.zip http://ethanschoonover.com/solarized/files/solarized.zip
+curl -o ~/Downloads/TomorrowNightEighties.terminal -l https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/OS%20X%20Terminal/Tomorrow%20Night%20Eighties.terminal | sh
+cd ~/.oh-my-zsh/custom/plugins
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+npm install --global pure-prompt
+mkdir -p ~/.nano/syntax
+cd ~/.nano/syntax
+curl -o Dockerfile.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/Dockerfile.nanorc
+curl -o git.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/git.nanorc
+curl -o javascript.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/javascript.nanorc
+curl -o json.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/json.nanorc
+curl -o markdown.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/markdown.nanorc
+curl -o patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/patch.nanorc
+curl -o sh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/sh.nanorc
+curl -o zsh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/zsh.nanorc
 
-    # Install GNU core utilities (those that come with OS X are outdated)
-    brew install coreutils
-
-    # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-    brew install findutils
-
-    # Install Bash 4
-    brew install bash
-
-    # Install more recent versions of some OS X tools
-    brew tap homebrew/dupes
-    brew install homebrew/dupes/grep
-
-    # use these tools over their Mac counterparts
-    $PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-
-    cecho "GNU utilities installed" $green
-
-    break;;
-  *) break;;
-esac
-
-## BINARIES INSTALLATION
-cecho "Binaries installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
-
-    # Tips on some binaries
-    # https://medium.com/dev-tricks/mount-a-remote-filesystem-with-sshfs-8a37e85b39ee
-    binaries=(
-    ack
-    git
-    mercurial
-    node
-    python
-    ruby
-    sshfs
-    tmux
-    trash
-    tree
-    wget
-    z
-    zsh
-    )
-
-    cecho "installing binaries..." $yellow
-    brew install ${binaries[@]}
-
-    brew cleanup
-
-    cecho "Binaries installed" $green
-
-    break;;
-  *) break;;
-esac
-
-## APPS INSTALLATION
-cecho "Apps installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
-    apps=(
-    alfred
-    atom
-    firefox
-    flash
-    google-chrome
-    kdiff3
-    mou
-    slack
-    sourcetree
-    spectacle
-    skype
-    transmit
-    vagrant
-    virtualbox
-    )
-
-    # Install apps to /Applications
-    # Default is: /Users/$user/Applications
-    cecho "installing apps..." $yellow
-    brew cask install --appdir="/Applications" ${apps[@]}
-
-    # Add link for alfred
-    brew cask alfred link
-
-    cecho "Apps installed" $green
-
-    break;;
-  *) break;;
-esac
-
-## FONT
-cecho "Fonts installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
-    brew tap caskroom/fonts
-
-    fonts=(
-      font-source-code-pro
-      font-droid-sans-mono
-    )
-
-    # install fonts
-    cecho "installing fonts..." $yellow
-    brew cask install ${fonts[@]}
-
-    cecho "Fonts installed" $green
-
-    break;;
-  *) break;;
-esac
-
-## Terminal
-cecho "Terminal installation ? (y/n)" $red
-read -r response
-case $response in
-  [yY])
-    cecho "Downloading oh-my-zsh..." $yellow
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-
-    #Solorized themes...
-    cecho "Downloading Solorized Themes..." $yellow
-    curl -o ~/Downloads/solarized.zip http://ethanschoonover.com/solarized/files/solarized.zip
-
-    # Pure themes
-    cecho "Download pure theme..."$yellow
-    curl -o ~/.oh-my-zsh/themes/pure.zsh-theme -l https://raw.githubusercontent.com/92bondstreet/dotfiles/master/pure.zsh
-
-    # Tomorrow Night Eighties
-    cecho "Download Tomorrow Night Eighties theme..."$yellow
-    curl -o ~/Downloads/TomorrowNightEighties.terminal -l https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/OS%20X%20Terminal/Tomorrow%20Night%20Eighties.terminal | sh
-
-    # zsh-syntax-highlighting
-    cecho "Download zsh-syntax-highlighting plugin..."$yellow
-    cd ~/.oh-my-zsh/custom/plugins
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-
-    # k
-    cecho "Download k script..."$yellow
-    mkdir ~/.k
-    cd ~/.k
-    curl -o k.sh -l https://raw.githubusercontent.com/supercrabtree/k/master/k.sh
-
-    # nano configuration
-    cecho "Download nano color syntax..."$yellow
-    mkdir -p ~/.nano/syntax
-    cd ~/.nano/syntax
-    curl -o git.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/git.nanorc
-    curl -o javascript.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/javascript.nanorc
-    curl -o markdown.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/markdown.nanorc
-    curl -o patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/patch.nanorc
-    curl -o sh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/sh.nanorc
-    curl -o zsh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/zsh.nanorc
-
-    # Tmuxinator
-    gem install tmuxinator
-
-    # Time tracker
-    gem install timetrap
-
-    cecho "Terminal installed" $green
-
-    break;;
-  *) break;;
-esac
-
-## http://jakoblaegdsmand.com/blog/2013/04/how-to-get-an-awesome-looking-terminal-on-mac-os-x/
-
-## OSX for hackers
-# https://gist.github.com/MatthewMueller/e22d9840f9ea2fee4716
+## more space display
+## remove all icon from dock

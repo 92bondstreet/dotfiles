@@ -1,56 +1,33 @@
 # 92BondStreet's Dotfiles
 
-Set of configuration dot files.
+> 1 command to rebirth like Ikki.
 
-## Scope
+![Ikki from http://rclens2.over-blog.com/article-2308125.html](http://a51.idata.over-blog.com/0/25/67/10/chevalier-de-bronze/pb051-ikki-bis.jpg)
 
-### Atom (editor)
+## 🕹️ Usage
 
-* [Packages](./atom/packages.json)
-* [Configuration](./atom/config.json)
-* [Keymap](./atom/keymap.json)
-* [Editorconfig](.editorconfig)
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/ikki.sh)"
+```
 
-### Git
+## 🧐 What's inside
 
-* [Gitignore](.gitignore)
-* [Aliases](.gitconfig)
+### Dotfiles
 
-### Linter
+### Bootstrap
 
-* [eslint](.eslintrc)
+## 🌱 Inspiration - Thanks - Deep dive reading
 
-### Nano
+* [wartner/mac-cleanup](https://github.com/fwartner/mac-cleanup)
+* [mengfeng/clean-my-mac](https://github.com/mengfeng/clean-my-mac)
+* [elvismercado/development-environment](https://github.com/elvismercado/development-environment/blob/master/.uninstallers-mac/garageband.sh)
+* [mzdr/macOS](https://github.com/mzdr/macOS)
+* [MikeMcQuaid/strap](https://github.com/MikeMcQuaid/strap)
+* [bignerdranch/macOS-bootstrap](https://github.com/bignerdranch/macOS-bootstrap)
+* [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles/blob/master/.macos)
+* [asapzacy/.macos](https://gist.github.com/asapzacy/591795152114a262b3e961b20d33152d)
+* [vraravam/osx_defaults.sh](https://gist.github.com/vraravam/5e28ca1720c9dddacdc0e6db61e093fe)
 
-* [Configuration](.nanorc)
+## License
 
-### oh-my-zsh
-
-* [zshrc](./zshrc)
-* [92BondStreet theme](bondstreet.zsh-theme)
-* [(custom) Pure theme](pure.zsh-theme)
-
-### OSX
-
-* [Bootstrap](osx.sh)
-
-### Tmux
-
-* [Configuration](.tmux.conf)
-
-## Project status
-
-dotfiles is in progress and is currently maintained by Yassine Azzout.
-
-
-## Authors and contributors
-
-### Current
-* [Yassine Azzout][] (Maker)
-
-[Yassine Azzout]: http://www.92bondstreet.com
-
-
-License
--------
-[MIT license](http://www.opensource.org/licenses/Mit)
+[Uncopyright](https://zenhabits.net/uncopyright)

@@ -11,5 +11,3 @@ unset backup
 
 # Improve Nano Syntax Highlighting Files
 # https://github.com/scopatz/nanorc/
-
-# include "~/.nano/syntax/git.nanorc"

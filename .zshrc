@@ -2,7 +2,9 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="pure"
+ZSH_THEME=""
+autoload -U promptinit; promptinit
+prompt pure
 
 export DISABLE_AUTO_TITLE=true
 
@@ -18,9 +20,8 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin"
 # Personal aliases
 source ~/.aliases
 
-# K
-source ~/.k/k.sh
-
-# TMUX
+# Default editor
 export EDITOR='nano'
-source ~/.bin/tmuxinator.zsh
+
+export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
