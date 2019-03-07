@@ -26,11 +26,29 @@ mac_cleanup () {
 
 }
 
-osx () {
+bootstrap () {
   echo "💻 Bootstraping..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/osx.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/bootstrap.sh)"
 }
+
+macos () {
+  echo "🍎 Overriding macos preferences..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/macos.sh)"
+}
+
+todo () {
+  echo "🚀 Todo list"
+  echo "Execute 'open ~/Downloads/TomorrowNightEighties.terminal'"
+  echo "Open Terminal > Preferences > Profiles > choose TomorrowNightEighties theme"
+  echo "Generate a new SSH key Add the SSH key to GitHub https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+  echo "GITHUB_TOKEN=<token> GIST_ID=<id> atom"
+  echo "Disable and remove Siri from Menu Bar"
+  echo "Rearrange apps from Mission Control"
+}
+
 
 #useless # doesnt' work with mojave
 mac_cleanup
-osx
+bootstrap
+macos
+todo

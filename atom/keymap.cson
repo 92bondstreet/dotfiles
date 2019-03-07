@@ -1,5 +1,0 @@
-'.editor':
-  'ctrl-space': 'autocomplete-plus:activate'
-
-'.autocomplete-plus input.hidden-input':
-  'enter': 'autocomplete-plus:confirm'
