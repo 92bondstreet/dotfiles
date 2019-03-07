@@ -70,9 +70,19 @@ curl -o patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/
 curl -o sh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/sh.nanorc
 curl -o zsh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/zsh.nanorc
 
-#echo "Todo list"
-#open ~/Downloads/TomorrowNightEighties.terminal
-#Terminal > Preferences > Profiles > choose TomorrowNightEighties
+echo "⚛️  Syncing Settings for Atom"
+apm install sync-settings
+
+echo "💻 Opening installed applications"
+open /Applications/Alfred\ 3.app
+open /Applications/Flux.app
+open /Applications/Spectacle.app
+
+echo "🚀 Todo list"
+echo "Execute 'open ~/Downloads/TomorrowNightEighties.terminal'"
+echo "Open Terminal > Preferences > Profiles > choose TomorrowNightEighties theme"
+echo "Generating a new SSH key Add the SSH key to GitHub https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+echo "GITHUB_TOKEN=<token> GIST_ID=<id> atom"
 
 ## more space display
 ## remove all icon from dock
