@@ -16,9 +16,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
-# Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
-
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
@@ -87,8 +84,37 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # SSD-specific tweaks                                                         #
 ###############################################################################
 
+# Sleep options
+sudo pmset -a displaysleep 5
+sudo pmset -a sleep 0
+sudo pmset -a disksleep 0
+
+# Wake for network access
+sudo pmset -a womp 1
+
+# Don't restart after power failure
+sudo pmset -a autorestart 0
+
+# Wake computer when laptop is opened
+sudo pmset -a lidwake 1
+
+# Don't wake computer when power source changes
+sudo pmset -a acwake 0
+
+# Don't dim brightness on any different source
+sudo pmset -a lessbright 0
+
+# Disable sudden motion sensor
+sudo pmset -a sms 0
+
+# Set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 86400
+
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
+
+# Never go into computer sleep mode
+sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Remove the sleep image file to save disk space
 sudo rm /private/var/vm/sleepimage
@@ -300,6 +326,14 @@ defaults write com.apple.commerce AutoUpdate -bool true
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
+###############################################################################
+# Siri                                                                      #
+###############################################################################
+
+# Disable Siri completely
+defaults write com.apple.Siri StatusMenuVisible -bool false
+defaults write com.apple.Siri UserHasDeclinedEnable -bool true
+defaults write com.apple.assistant.support 'Assistant Enabled' 0
 
 ###############################################################################
 # Kill affected applications                                                  #
