@@ -60,15 +60,11 @@ echo "🖥️ Theming the terminal"
 npm install --global pure-prompt
 source ~/.zshrc
 mkdir -p ~/.nano/syntax
-cd ~/.nano/syntax
-curl -o Dockerfile.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/Dockerfile.nanorc
-curl -o git.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/git.nanorc
-curl -o javascript.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/javascript.nanorc
-curl -o json.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/json.nanorc
-curl -o markdown.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/markdown.nanorc
-curl -o patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/patch.nanorc
-curl -o sh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/sh.nanorc
-curl -o zsh.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/zsh.nanorc
+curl -o ~/.nano/syntax/Dockerfile.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/Dockerfile.nanorc
+curl -o ~/.nano/syntax/git.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/git.nanorc
+curl -o ~/.nano/syntax/js.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/js.nanorc
+curl -o ~/.nano/syntax/markdown.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/markdown.nanorc
+curl -o ~/.nano/syntax/patch.nanorc -l https://raw.githubusercontent.com/scopatz/nanorc/master/patch.nanorc
 
 echo "⚛️  Syncing Settings for Atom"
 apm install sync-settings
