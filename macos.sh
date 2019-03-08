@@ -72,6 +72,9 @@ general () {
 
   # Disable auto-correct
   defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+  # annoying sounds
+  defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -bool false
 }
 
 sleep () {

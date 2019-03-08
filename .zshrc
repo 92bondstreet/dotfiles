@@ -7,7 +7,7 @@ ZSH_THEME=""
 export DISABLE_AUTO_TITLE=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(git zsh-syntax-highlighting history history-substring-search terminalapp)
+plugins=(git history history-substring-search npm zsh-autosuggestions zsh-syntax-highlighting terminalapp yarn)
 
 # Start
 source $ZSH/oh-my-zsh.sh

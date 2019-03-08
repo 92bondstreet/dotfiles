@@ -35,8 +35,3 @@ alias h="history"
 
 # Speed-up Terminal load time by clearing system logs
 alias speedup="sudo rm -rf /private/var/log/asl/*"
-
-# Tmux
-kill-tx (){
-  tmux kill-session -t $1
-}
