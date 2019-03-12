@@ -74,3 +74,4 @@ open /Applications/Alfred\ 3.app
 open /Applications/Dozer.app
 open /Applications/Flux.app
 open /Applications/Spectacle.app
+open /Applications/Keepingyouawake.app
