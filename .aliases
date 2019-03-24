@@ -35,3 +35,6 @@ alias h="history"
 
 # Speed-up Terminal load time by clearing system logs
 alias speedup="sudo rm -rf /private/var/log/asl/*"
+
+# remove all node_modules directories
+alias rmnm="find . -name "node_modules" -type d -exec rm -rf '{}' +"
