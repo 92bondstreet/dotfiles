@@ -23,6 +23,7 @@ brew "zsh"
 
 cask "alfred"
 cask "atom"
+cask "aware"
 cask "docker"
 cask "dozer"
 cask "flux"
