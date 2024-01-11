@@ -7,7 +7,8 @@
 ## 🕹️ Usage
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/ikki.sh)"
+curl -o ikki.sh -fsSL https://raw.githubusercontent.com/92bondstreet/dotfiles/master/ikki.sh
+sh ikki.sh -h
 ```
 
 ## 🧐 What's inside
