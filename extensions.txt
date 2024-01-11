@@ -1,0 +1,12 @@
+alefragnani.Bookmarks
+ChakrounAnas.turbo-console-log	
+esbenp.prettier-vscode
+formulahendry.auto-rename-tag
+kamikillerto.vscode-colorize
+pranaygp.vscode-css-pee
+ritwickdey.LiveServer
+Shan.code-settings-sync	
+zhuangtongfa.material-theme
+
+#https://gist.github.com/illvart/bf98de24cb2facfbc332269aadd149c8
+#dotfiles
